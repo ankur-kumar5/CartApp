@@ -1,23 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import {counterActions} from "../reducers/counterReducer";
-import { useTransition } from "react";
 
 const Counter = () => {
     const count = useSelector(state => state.counter.counter);
     const dispatch = useDispatch();
 
-    const [isPending, startTransition] = useTransition();
-
     const counterHandler = action => {
         console.log(action);
         console.log(isPending);
         if (action === "increment") {
-             startTransition(async () => {
-                   const res = await fetch("http://localhost:8000/").then(res => res.json()).then(data => console.log(data));
-                    console.log(res);
-                    dispatch(counterActions.increment());
-                });
-
+             dispatch(counterActions.increment());
         } else if (action === "decrement") {
             dispatch(counterActions.decrement());
         } else if (action === "incrementByAmount") {
