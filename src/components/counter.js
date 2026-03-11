@@ -7,7 +7,6 @@ const Counter = () => {
 
     const counterHandler = action => {
         console.log(action);
-        console.log(isPending);
         if (action === "increment") {
              dispatch(counterActions.increment());
         } else if (action === "decrement") {
@@ -24,10 +23,10 @@ const Counter = () => {
       <h1>Redux Toolkit Counter</h1>
       <h2>{count}</h2>
 
-      <button disabled={isPending} onClick={() => counterHandler("increment")}>+</button>
-      <button disabled={isPending} onClick={() => counterHandler("decrement")}>-</button>
-      <button disabled={isPending} onClick={() => counterHandler("incrementByAmount")}>+5</button>
-      <button disabled={isPending} onClick={() => counterHandler("toggleCounter")}>Toggle Counter</button>
+      <button onClick={() => counterHandler("increment")}>+</button>
+      <button onClick={() => counterHandler("decrement")}>-</button>
+      <button onClick={() => counterHandler("incrementByAmount")}>+5</button>
+      <button onClick={() => counterHandler("toggleCounter")}>Toggle Counter</button>
       </div>)
 };
 
