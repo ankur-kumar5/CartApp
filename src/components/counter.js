@@ -23,6 +23,7 @@ const Counter = () => {
       <h1>Redux Toolkit Counter Cart App</h1>
       <h2>{count}</h2>
 
+
       <button onClick={() => counterHandler("increment")}>+</button>
       <button onClick={() => counterHandler("decrement")}>-</button>
       <button onClick={() => counterHandler("incrementByAmount")}>+5</button>
