@@ -34,7 +34,7 @@ const Counter = () => {
        }
        <br/>
       <button onClick={() => counterHandler("toggleCounter")}>Toggle Counter</button>
-      </div>)
+    </div>)
 };
 
 export default Counter;
