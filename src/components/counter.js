@@ -30,7 +30,7 @@ const Counter = () => {
                 <button onClick={() => counterHandler("incrementByAmount")}>+5</button>
             </div>
         :
-            <p style={{ color: "white" }}>No Counter to Display</p>
+            <p style={{ color: "white" }}>No Counter to Display, Click on Toggle Counter Button</p>
        }
        <br/>
       <button onClick={() => counterHandler("toggleCounter")}>Toggle Counter</button>
