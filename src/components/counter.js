@@ -21,7 +21,7 @@ const Counter = () => {
 
     return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Redux Toolkit Counter Cart App EC2</h1>
+      <h1 style={{ color: "white"}}>Redux Toolkit Counter Cart App EC2</h1>
       <h2>{count}</h2>
        { showCounter ?
             <div>
