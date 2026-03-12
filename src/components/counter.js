@@ -3,6 +3,7 @@ import {counterActions} from "../reducers/counterReducer";
 
 const Counter = () => {
     const count = useSelector(state => state.counter.counter);
+    const showCounter = useSelector(state => state.counter.showCounter)
     const dispatch = useDispatch();
 
     const counterHandler = action => {
@@ -22,10 +23,16 @@ const Counter = () => {
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Redux Toolkit Counter Cart App EC2</h1>
       <h2>{count}</h2>
-
-      <button onClick={() => counterHandler("increment")}>+</button>
-      <button onClick={() => counterHandler("decrement")}>-</button>
-      <button onClick={() => counterHandler("incrementByAmount")}>+5</button>
+       { showCounter ?
+            <div>
+                <button onClick={() => counterHandler("increment")}>+</button>
+                <button onClick={() => counterHandler("decrement")}>-</button>
+                <button onClick={() => counterHandler("incrementByAmount")}>+5</button>
+            </div>
+        :
+            <p style={{ color: "white" }}>No Counter to Display</p>
+       }
+       <br/>
       <button onClick={() => counterHandler("toggleCounter")}>Toggle Counter</button>
       </div>)
 };
