@@ -12,6 +12,7 @@ phases:
     commands:
       - echo Building React app
       - npm run build
+      - cp deployment.sh build/
 
   post_build:
     commands:
