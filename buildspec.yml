@@ -5,8 +5,8 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - cd CartApp
       - echo Installing dependencies
+      - echo "Current directory: $(pwd)"
       - npm install
 
   build:
