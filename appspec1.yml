@@ -1,0 +1,64 @@
+# appspec.yml is a configuration file used by AWS CodeDeploy that defines how an application is deployed to instances. It specifies the operating system, file locations, permissions, and lifecycle hooks like BeforeInstall, AfterInstall, ApplicationStart, and ValidateService that run deployment scripts.
+
+# Defines the AppSpec file format version.
+version: 0.0
+# Defines the operating system of the deployment target
+os: linux # Possible values: linux, windows
+
+# Used to set file permissions on deployed files.
+permissions:
+  - object: /var/www/myapp
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+# This section tells CodeDeploy where to copy the application files on the server.    
+files:
+  - source: build/ # location inside artifact
+    destination: /var/www/react-app # location on server
+
+# Hooks define scripts to run at different stages of deployment
+hooks:
+  # Runs before the new version is installed.
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 300
+  # Runs before copying new files.    
+  BeforeInstall:
+    - location: scripts/backup.sh # OR scripts/cleanup.sh
+      timeout: 300
+  # This is an internal step where CodeDeploy copies files defined in files
+  Install:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+  # Runs after files are copied.
+  AfterInstall:
+    - location: scripts/configure_server.sh
+      timeout: 300
+  # Runs to start the application. ( start web server, start background jobs, etc.)    
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 300
+  # Final step to verify deployment success. (check if server is running, check logs, etc.)
+  ValidateService:
+    - location: scripts/validate_service.sh
+      timeout: 300   
+
+
+
+
+# Deployment Lifecycle Hooks
+
+#   These hooks run in a specific order during deployment.
+
+#   Hook Order
+#   ApplicationStop
+#   ↓
+#   BeforeInstall
+#   ↓
+#   Install
+#   ↓
+#   AfterInstall
+#   ↓
+#   ApplicationStart  
+#   ↓
+#   ValidateService

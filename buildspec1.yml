@@ -1,0 +1,55 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  # Used to install dependencies or packages.
+  install:
+    commands:
+      - npm install
+  # Runs before the main build starts.    
+  pre_build:
+    commands:
+      - npm run lint
+      - npm test
+      - echo "Logging in to Amazon ECR..."
+  # This is the main build step.    
+  build:
+    # This controls what happens when a command fails.
+    on-failure: ABORT # Other values like CONTINUE, RETRY
+    # on-failure: RETRY-3 # Retries the command up to 3 times before failing the build.
+    commands:
+      - npm run build
+    # Used for cleanup tasks  
+    finally:
+      - echo Build completed on `date`
+  # Runs after the build is completed.    
+  post_build:
+    commands:
+      - echo Build completed on `date`
+# Sometimes you need multiple output artifacts. and When multiple outputs are required in different deployment stages.
+# For Example
+# Build Stage
+#    ↓
+# Frontend Artifact → S3 Deploy
+# Backend Artifact → ECS Deploy
+secondary-artifacts:
+  backend_artifact:
+    files:
+      - '**/*'
+# Defines which files should be passed to the next pipeline stage.      
+artifacts:
+  files:
+    - '**/*'
+cache:
+  paths:
+    - node_modules/**/*
+reports:
+  files:
+    - '**/*'
+env:
+  variables:
+    NODE_ENV: production
+  parameter-store:
+    DB_HOST: /myapp/DB_HOST   

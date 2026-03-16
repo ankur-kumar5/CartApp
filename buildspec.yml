@@ -4,15 +4,20 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
-
-  install:
     commands:
-      - npm install
+      - echo Installing dependencies
+      - npm ci
 
   build:
     commands:
+      - echo Building React app
       - npm run build
 
+  post_build:
+    commands:
+      - echo Build completed
+
 artifacts:
+  base-directory: build
   files:
     - '**/*'
