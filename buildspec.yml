@@ -6,7 +6,7 @@ phases:
       nodejs: 18
     commands:
       - echo Installing dependencies
-      - npm ci
+      - npm install
 
   build:
     commands:
@@ -18,6 +18,6 @@ phases:
       - echo Build completed
 
 artifacts:
-  base-directory: CartApp/build
+  base-directory: build
   files:
     - '**/*'
